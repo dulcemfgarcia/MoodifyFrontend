@@ -15,7 +15,6 @@ function App() {
         {/* <Route path="/contacts" element={user ? <Contacts user={user} setUser={setUser} /> : <LoginPage setUser={setUser} />} /> */}
       </Routes>
     </>
-    
   );
 }
 

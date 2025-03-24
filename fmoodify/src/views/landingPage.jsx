@@ -1,6 +1,4 @@
 import {Link} from 'react-router-dom';
-import SignIn from './signIn';
-import SignUp from './signUp';
 
 export default function landingPage(){
     return (
