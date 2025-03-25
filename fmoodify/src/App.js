@@ -2,7 +2,7 @@ import './App.css';
 import {Routes, Route} from 'react-router-dom';
 import LandingPage from './views/landingPage';
 import SignIn from './views/signIn';
-import SignUp from './views/signUp';
+import SignUp from './views/SignUp';
 import Home from './views/home';
 function App() {
   return (

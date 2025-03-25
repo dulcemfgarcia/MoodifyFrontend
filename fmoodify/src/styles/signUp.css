@@ -1,0 +1,128 @@
+/* Fondo general */
+.signup-container {
+  height: 100vh;
+  background: linear-gradient(to right, #d3d3d3, #f5f2ff);
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Botón volver */
+.back-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Formulario */
+.signup-form {
+  max-width: 900px;
+  margin: 40px auto 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/*para columnas*/
+.form-grid {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+/* Sección para seleccionar imagen */
+.profile-pic-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/*Botón de selección de imagen*/
+.upload-button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Imagen seleccionada */
+.profile-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Texto visual "*" para indicar que el campo es obligatorio */
+.required {
+  color: red;
+}
+
+/* Checkmark de aceptación de términos y condiciones */
+.terms {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+  max-width: 600px;
+  font-size: 0.95rem; /*referencia al wrapper donde se encuentran los elementos*/
+}
+
+/* Botón para crear usuarios */
+.submit-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #aaaaaa;
+  cursor: not-allowed;
+}
+
+.submit-button:not(:disabled):hover {
+  background-color: #333333;
+}

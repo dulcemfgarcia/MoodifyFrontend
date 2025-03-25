@@ -1,15 +1,25 @@
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/landingPage.css';
+import logo from '../assets/MoodifyWhite.png';
 
-export default function landingPage(){
-    return (
-        <div>
-            <h1>LandingPage</h1>
-            <Link to="/signIn">
-                <button>Sign In</button>
-            </Link>
-            <Link to="/signUp">
-                <button>Sign Up</button>
-            </Link>
-        </div>
-    );
+export default function LandingPage() {
+  return (
+    <div className="landingpage-container">
+        <header className="landingpage-header">
+            <img src={logo} alt="Moodify Logo" className="logo-image" />
+        </header>
+
+        <div className="card-container">
+            <div className="card">
+                <p>You are new on Moodify</p>
+                <Link to="/signup" className="button-link">Sign Up</Link>
+            </div>
+            <div className="card">
+                <p>You already have an account</p>
+                <Link to="/signin" className="button-link">Sign In</Link>
+            </div>
+      </div>
+    </div>
+  );
 }
