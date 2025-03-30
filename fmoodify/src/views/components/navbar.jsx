@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import { UserContext } from "../data/UserContext";
 import Moodify from "../../assets/MoodifyWhite.png";
 import "../../styles/navbar.css";
@@ -12,6 +12,19 @@ export default function Navbar() {
         setMenuOpen(!menuOpen);
     }
 
+    function CustomLink({ to, children, ...props }) {
+        const resolvedPath = useResolvedPath(to);
+        const isActive = useMatch({ path: resolvedPath.pathname, end: true });
+        return (
+            <li className={ isActive ? "active" : "" }>
+                <Link to={to} { ...props }>
+                    {children}
+                </Link>
+            </li>
+        );
+
+    }
+
     return (
         <>
         <navbar className="nav">
@@ -20,9 +33,9 @@ export default function Navbar() {
                 ☰
             </button>
             <ul className={menuOpen ? "nav-links open" : "nav-links"}>
-                <li><Link to="/history">History</Link></li>
-                <li><Link to="/home" className="active">Home</Link></li>
-                <li><Link to="/dashboard">Dashboard</Link></li>
+                <li><CustomLink to="/history">History</CustomLink></li>
+                <li><CustomLink to="/home">Home</CustomLink></li>
+                <li><CustomLink to="/dashboard">Dashboard</CustomLink></li>
             </ul>
             <div className="profile">
                 <div className="profilePic-container">
