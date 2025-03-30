@@ -1,0 +1,39 @@
+.drop-file-input_container {
+    padding: 1.5rem;
+}
+
+.drop-file-input {
+    position: relative;
+    width: 350px;
+    height: 200px;
+    border: 3.5px dashed #000000;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-icon {
+    width: 75px;
+    height: 75px;
+}
+
+.drop-file-input input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.drop-file-input:hover,
+.drop-file-input.dragover {
+    opacity: 0.6;
+}
+
+.drop-file-input_text {
+    text-align: center;
+}
