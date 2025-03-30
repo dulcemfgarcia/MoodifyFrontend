@@ -6,6 +6,9 @@ import loadingIcon from "../assets/loading.gif";
 import Ansiedades from "../assets/temp/Ansiedades.jpeg";
 import Blue from "../assets/temp/Blue.jpg";
 import TheShade from "../assets/temp/WhoCares.jpeg";
+import Chromakopia from "../assets/temp/CHROMAKOPIA.jpeg"
+import Qwerty from "../assets/temp/qwerty ii.jpeg"
+import OkComputer from "../assets/temp/OK Computer.jpeg"
 
 import "../styles/home.css";
 
@@ -23,6 +26,10 @@ export default function Home() {
     const onTakePhoto = (photo) => {
         setImage(photo);
     }
+
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+      };
 
     const handleStart = () => {
         setImage(null);
@@ -48,8 +55,31 @@ export default function Home() {
                     album: "WHO CARES?",
                     image: TheShade,
                 },
+                // {
+                //     title: "Like Him",
+                //     artist: "Tyler, The Creator",
+                //     album: "CHROMAKOPIA",
+                //     image: Chromakopia,
+                // },
+                // {
+                //     title: "A BOUTIQUE FOR YOUR 180 FACE",
+                //     artist: "Saya Gray",
+                //     album: "QWERTY II",
+                //     image: Qwerty,
+                // },
+                // {
+                //     title: "Exist Music",
+                //     artist: "Radiohead",
+                //     album: "Ok Computer",
+                //     image: OkComputer,
+                // },
             ]);
         }, 3000);
+    }
+
+    const handleNewRecommendationbutton = () => {
+        setImage(null);
+        SetRecommendations(null);
     }
 
     return (
@@ -102,20 +132,25 @@ export default function Home() {
                 )}
                 {recommendations && (
                     <div className="recommendations">
-                        <h1>Recommendations</h1>
-                        <div className="recommendation-list">
-                            {recommendations.map((rec, index) => (
+                        <h1>You feeel Happy</h1>
+                        <div className="recommendation-list ">
+                            {
+                                recommendations.map((rec, index) => (
                                 <div key={index} className="recommendation-item">
-                                    <img src={rec.image} alt={rec.title} className="recommendation-image" />
-                                    <div className="recommendation-info">
-                                        <h2>{rec.title}</h2>
-                                        <p>{rec.artist}</p>
-                                        <p>{rec.album}</p>
+                                    <div className="recommendation-image">
+                                        <img src={rec.image} alt={rec.title}  />
                                     </div>
-                                </div>
-                            ))}
+                                    <div className="recommendation-info">
+                                        <h2>{truncateText(rec.title, 20)}</h2>
+                                        <p>{truncateText(rec.artist, 15)}</p>
+                                        <p>{truncateText(rec.album, 25)}</p>
+                                    </div>
+                                </div>))
+                            }
                         </div>
-                        <button className="new-recommendation-button">New Recommendation</button>
+                        <div className="button-container">
+                            <button className="new-recommendation-button" onClick={handleNewRecommendationbutton}>New Recommendation</button>
+                        </div>
                     </div>
                 )}
             </div>
