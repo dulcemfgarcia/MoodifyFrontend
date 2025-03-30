@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;700;800&display=swap');
+
+:root {
+    --main-bg-color: linear-gradient(80deg, #49A078 20%, #216869 50%);
+    --user-bg-color: #9CC5A1;
+    --main-text-color: #DCE1DE;
+    --main-text-font: 'Poppins', sans-serif;}
+
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--main-text-color);
+    gap: rem;
+    padding: 1.5rem;
+}
+
+.logo {
+    height: 80px;
+    margin: 0%;
+    transition: 0.3;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 7rem;
+}
+
+.nav-links a {
+    color: inherit;
+    font-size: 25px;
+    text-decoration: none;
+    font-family: var(--main-text-font);
+    font-style: normal;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.nav .active {
+    pointer-events: none;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profilePic-container {
+    width: 50px;
+    height: 50px;
+    background-color: var(--user-bg-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilePic {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+.profile .username {
+    padding-left: 13px;
+    font-size: 18px;
+}
+
+
+@media (max-width: 1024px) {
+    .nav ul {
+        gap: 4rem;
+    }
+
+    .nav a {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding-top: 1rem;
+    }
+     */
+
+    .logo {
+        height: 60px;  /* Ajusta el tamaño del logo */
+    }
+
+    .nav ul {
+        gap: 1rem;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(30, 104, 89, 0.9);
+        padding: 1rem 0;
+        gap: 1rem;
+    }
+
+    .nav-links.open {
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        height: 40px;
+    }
+
+    .nav a {
+        font-size: 18px;
+    }
+
+    .profilePic-container {
+        width: 25px;
+        height: 25px;
+    }
+
+    .profile .username {
+        font-size: 14px;
+    }
+}

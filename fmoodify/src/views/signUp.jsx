@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../styles/signUp.css';
+import { UserContext } from "./data/UserContext";
 import ModalPage from './components/ModalPage.jsx';
 import Logo from '../assets/MoodifyBlack.png';
 import Defaulticon from '../assets/profilePics/Man1.png';
+import '../styles/signUp.css';
 
 
 export default function SignUp() {
+  const { setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
@@ -56,6 +59,16 @@ export default function SignUp() {
       alert("Passwords do not match.");
       return;
     }
+
+    /* TODO: Aquí va implementada la lógica de envío de información a base de datos y creación de usuario.
+    podría agregarse una alerta de confirmación de usuario creado exitosamente. Se actualiza el UserContext
+    para tener la información del usuario en toda la aplicación, como idUsuario*/
+
+    setUser({
+      ...user,
+      profilePicture: selectedProfile,
+      username: user
+    });
   
     navigate("/home");
   };
