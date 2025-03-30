@@ -1,0 +1,55 @@
+:root {
+    --text-color: #DCE1DE;
+    --text-font: 'Poppins', sans-serif;
+    --background-color: linear-gradient(80deg, #49A078 0%, #216869 100%);
+    --button-color: #1F2421;
+}
+
+.modal-overlay-take-photo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.50);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.modal-content-take-photo {
+    background-color: var(--button-color);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.responsive-webcam {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    background-color: black;
+}
+
+.takePhoto-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+}
+
+.container-takephoto-button{
+    padding-top: 1.5rem;
+}
+
+@media (max-width: 480px) {
+    .webcam-container {
+        width: 95%;
+    }
+
+    .responsive-webcam {
+        aspect-ratio: 4 / 3;
+    }
+}

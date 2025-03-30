@@ -5,19 +5,16 @@
     --primary-color: #49A078;
     --secondary-color: #216869;
     --text-color: #DCE1DE;
-    --background-color: linear-gradient(to right, #49A078 0%, #216869 100%);
+    --text-font: 'Poppins', sans-serif;
+    --background-color: linear-gradient(80deg, #49A078 0%, #216869 100%);
+    --button-color: #1F2421;
 }
 
-body {
-    height: 100%;
-}
-
-/* Contenedor principal */
 .home-container {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--text-font);
     background: var(--background-color);
     color: var(--text-color);
     display: flex;
@@ -30,8 +27,18 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
+}
+
+.capture {
+    width: 355px;
+    border-radius: 12px;
+    border: 0;
+    padding: 5px 0px;
+    background-color: var(--button-color);
+    font-family: var(--text-font);
+    font-size: 16px;
+    color: var(--text-color);
 }

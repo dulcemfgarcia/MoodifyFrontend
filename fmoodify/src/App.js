@@ -3,7 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 import LandingPage from './views/landingPage';
 import SignIn from './views/signIn';
 import SignUp from './views/SignUp';
-import Home from './views/home';
+import Home from './views/Home';
 import History from './views/history';
 import Dashboard from './views/dashboard';
 

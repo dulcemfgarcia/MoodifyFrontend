@@ -1,22 +1,49 @@
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
+import DropFileInput from "./components/dropFileInput";
+import ModalTakePhoto from "./components/ModalTakePhoto";
 import "../styles/home.css";
 
-export default function home() {
+export default function Home() {
+    const [image, setImage] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const onFileChange = (file) => {
+        console.log(file);
+        setImage(URL.createObjectURL(file));
+    };
+
+    const onTakePhoto = (photo) => {
+        setImage(photo);
+    }
+
     return (
         <>
         <div className="home-container">
             <Navbar />
             <div className="content">
-                <h1>Listen what you feeling</h1>
-                <p>First, take a picture of yourself or upload one from your files
-                Then you get music recommendations that match your feelings</p>
-
-                <div className="upload-box">
-                <div className="upload-icon">⬆️</div>
-                <p>Drag and Drop your files <br /> or Click to browse files</p>
-                </div>
-
-                <button className="capture-btn">Take a picture</button>
+                {(!image) && (
+                    <>
+                    <h1>Listen what you feeling</h1>
+                    <p>
+                        First, take a picture of yourself or upload one from your files
+                        <br />
+                        Then you get music recommendations that match your feelings
+                    </p>
+    
+                    <DropFileInput onFileChange={(files => onFileChange(files))} />
+                    <button className="capture" onClick={() => setShowModal(!showModal)}>Take a picture</button>
+                    </>
+                )}
+                {showModal && (
+                    <ModalTakePhoto
+                        onClose={() => setShowModal(false)}
+                        onTake={onTakePhoto}
+                    />
+                )}
+                {image && (
+                    <img src={image} alt="Uploaded" className="uploaded-image" />
+                )}
             </div>
         </div>
         </>
