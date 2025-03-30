@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from "./data/UserContext";
 import '../styles/signIn.css';
 import FaceImage from '../assets/face.png';
 import Logo from '../assets/MoodifyBlack.png';
+import icon1 from '../assets/profilePics/Man1.png';
 
 export default function SignIn() {
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
@@ -26,6 +29,16 @@ export default function SignIn() {
       alert("Please fill all fields.");
       return;
     }
+
+    /* TODO: Aquí va implementada la lógica de envío de información a base de datos y creación de usuario.
+    podría agregarse una alerta de confirmación de usuario creado exitosamente. Se actualiza el UserContext
+    para tener la información del usuario en toda la aplicación, como idUsuario*/
+
+    setUser({
+      ...user,
+      profilePicture: icon1,
+      username: username
+    });
 
     navigate("/home");
   };
