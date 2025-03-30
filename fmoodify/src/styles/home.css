@@ -8,6 +8,8 @@
     --text-font: 'Poppins', sans-serif;
     --background-color: linear-gradient(80deg, #49A078 0%, #216869 100%);
     --button-color: #1F2421;
+    --card-color: #1F2421;
+    --button-cancel-color: #A71D31;
 }
 
 .home-container {
@@ -41,4 +43,148 @@
     font-family: var(--text-font);
     font-size: 16px;
     color: var(--text-color);
+}
+
+.image-preview-container {
+    max-width: 600px;
+}
+
+.uploaded-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.buttons {
+    padding-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 100%; 
+    justify-content: center;
+}
+
+.cancel-button,
+.start-button {
+    flex: 1;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    font-family: var(--text-font);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button {
+    background-color: var(--button-cancel-color);
+}
+
+.loading-overlay {
+    display: flex;
+    padding-top: 50px;
+}
+
+.recommendations {
+    text-align: left;
+}
+
+.recommendations h1{
+    text-align: center;
+}
+
+.recommendation-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.recommendation-item {
+    width: 250px;
+    background: var(--card-color);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommendation-item:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+.recommendation-image {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.recommendation-info h3 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.recommendation-info p {
+    font-size: 14px;
+}
+
+.new-recommendation-button {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    font-family: var(--text-font);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination {
+    margin-top: 15px;
+}
+
+.dot {
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.dot.active {
+    color: black;
+}
+
+@media (max-width: 680px) {
+    .recommendation-list {
+        flex-wrap: wrap;
+        justify-content: center; 
+    }
+
+    .recommendation-item {
+        width: 90%;
+    }
+}
+  
+
+@media (max-width: 480px) {
+    .buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .cancel-button,
+    .start-button {
+        width: 100%;
+        font-size: 14px;
+        padding: 8px 16px; 
+    }
+
+    .loading-overlay {
+        font-size: 14px;
+    }
+
+    .loading-image {
+        height: 90px;
+    }
 }
