@@ -28,6 +28,7 @@
 .content {
     flex: 1;
     display: flex;
+    margin-top: 2%;
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -47,6 +48,7 @@
 
 .image-preview-container {
     max-width: 600px;
+    margin-top: 2%;
 }
 
 .uploaded-image {
@@ -85,6 +87,7 @@
 .loading-overlay {
     display: flex;
     padding-top: 50px;
+    margin-top: 5%;
     flex-direction: column;
     align-items: center;
 }
@@ -95,7 +98,7 @@
 }
 
 .recommendations h1 {
-    font-size: 24px;
+    font-size: 35px;
     text-align: center;
     padding-top: 0px;
 }
@@ -110,7 +113,7 @@
     width: 300px;
     background: var(--card-color);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
@@ -130,8 +133,8 @@
 }
 
 .recommendation-image img {
-    width: 80%;
-    border-radius: 8px;
+    width: 85%;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,16 +164,25 @@
     padding: 25px;
 }
 
-.new-recommendation-button {
-    background-color: var(--button-color);
-    color: var(--text-color);
-    font-family: var(--text-font);
-    border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.carrusel-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.carrusel-button {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Hace una transición al cambiar cualquier propiedad del botón */
+}
+
+.carrusel-button.active {
+  width: 48px;
+  border-radius: 8px;
 }
 
 .new-recommendation-button {
@@ -178,8 +190,8 @@
     color: var(--text-color);
     font-family: var(--text-font);
     border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
+    border-radius: 8px;
+    padding: 10px 40px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -195,7 +207,6 @@
         width: 90%;
     }
 }
-  
 
 @media (max-width: 480px) {
     .buttons {

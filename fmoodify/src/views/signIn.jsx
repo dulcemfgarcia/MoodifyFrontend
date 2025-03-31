@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "./data/UserContext";
-import '../styles/signIn.css';
+
 import FaceImage from '../assets/face.png';
 import Logo from '../assets/MoodifyBlack.png';
 import icon1 from '../assets/profilePics/Man1.png';
+
+import '../styles/signIn.css';
 
 export default function SignIn() {
   const { user, setUser } = useContext(UserContext);
@@ -82,8 +84,8 @@ export default function SignIn() {
             />
 
             <div className="links">
-              <Link to="/forgot-password">I forgot my password</Link>
-              <Link to="/signup">I don’t have an account</Link>
+              <Link to="/ForgotPassword">I forgot my password</Link>
+              <Link to="/signup">I don't have an account</Link>
             </div>
 
             <button type="submit" className="submit-button">Sign In</button>
