@@ -5,7 +5,7 @@ import SignIn from './views/signIn';
 import SignUp from './views/SignUp';
 import Home from './views/Home';
 import History from './views/history';
-import Dashboard from './views/dashboard';
+import Dashboard from './views/Dashboard';
 
 function App() {
   return (
