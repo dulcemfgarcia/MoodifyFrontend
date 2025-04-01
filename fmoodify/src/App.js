@@ -4,8 +4,10 @@ import LandingPage from './views/landingPage';
 import SignIn from './views/signIn';
 import SignUp from './views/SignUp';
 import Home from './views/Home';
-import History from './views/history';
-import Dashboard from './views/Dashboard';
+import History from './views/History';
+import Dashboard from './views/dashboard';
+import ForgotPassword from './views/ForgotPassword';  
+import RestorePassword from './views/RestorePassword';  
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/home" element={<Home/>} />
         <Route path="/history" element={<History/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/forgotPassword" element={<ForgotPassword/>} />
+        <Route path="/restorePassword" element={<RestorePassword/>} />
         {/* <Route path="/contacts" element={user ? <Contacts user={user} setUser={setUser} /> : <LoginPage setUser={setUser} />} /> */}
       </Routes>
     </>
