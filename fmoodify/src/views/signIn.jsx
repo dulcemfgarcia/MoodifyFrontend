@@ -1,19 +1,27 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "./data/UserContext";
+import axios from 'axios';
 
 import FaceImage from '../assets/face.png';
 import Logo from '../assets/MoodifyBlack.png';
 import icon1 from '../assets/profilePics/Man1.png';
+import icon2 from '../assets/profilePics/Man2.png';
+import icon3 from '../assets/profilePics/Man3.png';
+import icon4 from '../assets/profilePics/man4.png';
+import icon5 from '../assets/profilePics/woman1.png';
+import icon6 from '../assets/profilePics/woman2.png';
+import icon7 from '../assets/profilePics/woman3.png';
+import icon8 from '../assets/profilePics/woman4.png';
 
 import '../styles/signIn.css';
 
 export default function SignIn() {
-  const { user, setUser } = useContext(UserContext);
+  const { setModelUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    username: '',
+    user: '',
     password: ''
   });
 
@@ -24,25 +32,40 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    try {
+      const { user, password } = credentials;
 
-    const { username, password } = credentials;
+      if (!user || !password) {
+        alert("Please fill all fields.");
+        return;
+      }
+      axios.post('http://localhost:5000/auth/login', credentials)
+      .then((response) => {
+        sessionStorage.setItem('token', response.data.data.token);
+        const profilePic = getIconByNumber(response.data.data.idProfilePicture);
 
-    if (!username || !password) {
-      alert("Please fill all fields.");
-      return;
+        console.log(response.data.data.user);
+        setModelUser(prev => ({
+          ...prev,
+          profilePicture: profilePic,
+          user: response.data.data.user
+        }));
+
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Error al iniciar sesión');
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al iniciar sesión');
     }
+  };
 
-    /* TODO: Aquí va implementada la lógica de envío de información a base de datos y creación de usuario.
-    podría agregarse una alerta de confirmación de usuario creado exitosamente. Se actualiza el UserContext
-    para tener la información del usuario en toda la aplicación, como idUsuario*/
-
-    setUser({
-      ...user,
-      profilePicture: icon1,
-      username: username
-    });
-
-    navigate("/home");
+  const getIconByNumber = (n) => {
+    const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8];
+    return icons[n - 1] || icon1;
   };
 
   return (
@@ -66,9 +89,9 @@ export default function SignIn() {
             <p>User</p>
             <input
               type="text"
-              name="username"
+              name="user"
               placeholder="Enter your username..."
-              value={credentials.username}
+              value={credentials.user}
               onChange={handleChange}
               required
             />

@@ -5,7 +5,7 @@ import Moodify from "../../assets/MoodifyWhite.png";
 import "../../styles/navbar.css";
 
 export default function Navbar() {
-    const { user } = useContext(UserContext);
+    const { modelUser } = useContext(UserContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const navigate = useNavigate();
@@ -46,9 +46,9 @@ export default function Navbar() {
                 </ul>
                 <div className="profile" onClick={toggleDropdown}>
                     <div className="profilePic-container">
-                        <img src={user.profilePicture} className="profilePic" alt="Profile" />
+                        <img src={modelUser.profilePicture} className="profilePic" alt="Profile" />
                     </div>
-                    <p className="username">{user.username}</p>
+                    <p className="username">{modelUser.user}</p>
                     {dropdownOpen && (
                         <div className="dropdown">
                             <button className="logout-button" onClick={handleLogout}>Log out</button>
