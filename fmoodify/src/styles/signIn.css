@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+:root {
+    --primary-color: #49A078;
+    --secondary-color: #216869;
+    --text-color: #DCE1DE;
+    --text-font: 'Poppins', sans-serif;
+    --background-color: linear-gradient(80deg, #49A078 0%, #216869 100%);
+    --button-color: #1F2421;
+    --card-color: #1F2421;
+    --button-cancel-color: #A71D31;
+}
+
 .signin-container {
-    height: 100vh;
-    background: linear-gradient(80deg, #D9D9D9 20%, #F9F5FF 75%);
+    height: 100%;
+    background: var(--background-color);
     padding: 30px;
     box-sizing: border-box;
+    color:  var(--text-color);
+    min-height: 100vh;
 }
   
   /* Botón back */
@@ -51,8 +64,15 @@
 .form-card {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 10px;
     width: 300px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .form-card p{
@@ -79,7 +99,13 @@ input {
     color: #fff;
     font-size: 1rem;
 }
-  
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px black inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 input::placeholder {
     color: #a1a1a1;
     font-size: 10pt;
@@ -95,7 +121,7 @@ input::placeholder {
   
 .links a {
     font-size: 0.9rem;
-    color: #14248A;
+    color: var(--text-color);
     text-decoration: none;
 }
   

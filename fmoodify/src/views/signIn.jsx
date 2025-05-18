@@ -4,7 +4,7 @@ import { UserContext } from "./data/UserContext";
 import axios from 'axios';
 
 import FaceImage from '../assets/face.png';
-import Logo from '../assets/MoodifyBlack.png';
+import Logo from '../assets/MoodifyWhite.png';
 import icon1 from '../assets/profilePics/Man1.png';
 import icon2 from '../assets/profilePics/Man2.png';
 import icon3 from '../assets/profilePics/Man3.png';
