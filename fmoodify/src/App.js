@@ -21,7 +21,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
         <Route path="/restorePassword" element={<RestorePassword/>} />
-        {/* <Route path="/contacts" element={user ? <Contacts user={user} setUser={setUser} /> : <LoginPage setUser={setUser} />} /> */}
       </Routes>
     </>
   );

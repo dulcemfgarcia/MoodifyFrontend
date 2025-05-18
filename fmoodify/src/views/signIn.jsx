@@ -44,7 +44,6 @@ export default function SignIn() {
         sessionStorage.setItem('token', response.data.data.token);
         const profilePic = getIconByNumber(response.data.data.idProfilePicture);
 
-        console.log(response.data.data.user);
         setModelUser(prev => ({
           ...prev,
           profilePicture: profilePic,
@@ -55,11 +54,11 @@ export default function SignIn() {
       })
       .catch((error) => {
         console.error('Error:', error);
-        alert('Error al iniciar sesión');
+        alert(error.response.data.message);
       });
     } catch (error) {
       console.error('Error:', error);
-      alert('Error al iniciar sesión');
+      alert('Error occurred during sign-in. Please try again.');
     }
   };
 

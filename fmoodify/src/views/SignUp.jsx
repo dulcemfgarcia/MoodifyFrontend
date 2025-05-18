@@ -2,27 +2,32 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "./data/UserContext";
 import ModalPage from './components/ModalPage.jsx';
+import axios from 'axios';
+
 import Logo from '../assets/MoodifyBlack.png';
 import Defaulticon from '../assets/profilePics/Man1.png';
 import '../styles/signUp.css';
 
 
 export default function SignUp() {
-  const { setUser } = useContext(UserContext);
+  const { setModelUser } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState(null);
+  const [selectedProfile, setSelectedProfile] = useState({
+    idProfilePicture: 1,
+    profilePicture: Defaulticon
+  });
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const [formData, setFormData] = useState({
     user: '',
     name: '',
-    lastName: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
-    birthday: ''
+    birthdate: ''
   });
 
   const handleChange = (e) => {
@@ -38,39 +43,60 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    const {
-      user,
-      name,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-      birthday
-    } = formData;
-  
-    //Validar que los campos estén llenos
-    if (!user || !name || !lastName || !email || !password || !confirmPassword || !birthday || !selectedProfile || !termsAccepted) {
-      alert("Please fill in all required fields");
-      return;
-    }
-  
-    //Confirmación de contraseña
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
+    try {
+      const {
+        user,
+        name,
+        lastname,
+        email,
+        password,
+        confirmPassword,
+        birthdate
+      } = formData;
 
-    /* TODO: Aquí va implementada la lógica de envío de información a base de datos y creación de usuario.
-    podría agregarse una alerta de confirmación de usuario creado exitosamente. Se actualiza el UserContext
-    para tener la información del usuario en toda la aplicación, como idUsuario*/
+      //Validar que los campos estén llenos
+      if (!user || !name || !lastname || !email || !password || !confirmPassword || !birthdate || !selectedProfile || !termsAccepted) {
+        alert("Please fill in all required fields");
+        return;
+      }
+    
+      //Confirmación de contraseña
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
 
-    setUser({
-      ...user,
-      profilePicture: selectedProfile,
-      username: user
-    });
-  
-    navigate("/home");
+      const newUser = {
+        user,
+        name,
+        lastname,
+        email,
+        password,
+        birthdate,
+        idProfilePicture: selectedProfile.idProfilePicture
+      }
+      console.log(newUser);
+
+      axios.post('http://localhost:5000/user/registerUser', newUser)
+      .then((response) => {
+        sessionStorage.setItem('token', response.data.data.token);
+
+        setModelUser(prev => ({
+          ...prev,
+          profilePicture: selectedProfile.profilePicture,
+          user: response.data.data.user
+        }));
+
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert(error.response.data.message);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      alert("An error occurred while creating the user.");
+    }
   };
 
   return (
@@ -101,17 +127,17 @@ export default function SignUp() {
             <div className="profile-pic-section">
               <button type="button" className="upload-button" onClick={() => setShowModal(true)}>Select</button>
               {selectedProfile ? (
-                <img src={selectedProfile} alt="Selected" className="profile-preview" />
+                <img src={selectedProfile.profilePicture} alt="Selected" className="profile-preview" />
               ) : (
                 <img src={Defaulticon} alt="Default" className="profile-preview" />
               )}
             </div>
 
             <label>Last Name <span className="required">*</span></label>
-            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+            <input type="text" name="lastname" value={formData.lastname} onChange={handleChange} required />
 
-            <label>Birthday <span className="required">*</span></label>
-            <input type="date" name="birthday" value={formData.birthday} onChange={handleChange} required />
+            <label>birthdate <span className="required">*</span></label>
+            <input type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} required />
 
             <label>Confirm Password <span className="required">*</span></label>
             <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
