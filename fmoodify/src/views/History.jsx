@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Happy from "../assets/emotionPics/happy.png";
@@ -25,54 +25,31 @@ const emotions = [
     { name: "Unknown", image: Unknown },
     { name: "Fear", image: Fear },
   ];
-  
-  // Datos quemados
-  const allData = [
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-    { feeling: "Happy", song: "Ansiedades", artist: "Mora", date: "2025-03-25" },
-    { feeling: "Sad", song: "blue", artist: "yung kai", date: "2025-03-25" },
-    { feeling: "Confused", song: "The Shade", artist: "Rex Orange County", date: "2025-12-27" },
-    { feeling: "Calm", song: "Exit Music", artist: "Radiohead", date: "2025-03-30" },
-  ];
+
 
 export default function History() {
 
+    const [allData, setAllData] = useState([]);
     const [selectedFeeling, setSelectedFeeling] = useState(null);
     const [currentCarruselPage, setCurrentCarruselPage] = useState(0);
-    const filteredData = selectedFeeling ? allData.filter((item) => item.feeling === selectedFeeling) : allData;
-    
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let url = "http://localhost:5000/api/history";
+            if (selectedFeeling) {   //Detectamos si hay una emoción seleccionada y la agregamos a la url
+                url += `?feeling=${selectedFeeling}`;
+            }
+
+            const res = await fetch(url);
+            const data = await res.json();
+            setAllData(data);
+        };
+
+        fetchData();
+    }, [selectedFeeling]);
+    
+    const filteredData = allData;
 
     return (
         <>
@@ -86,7 +63,7 @@ export default function History() {
                             <div
                                 key={index}
                                 className={`emotion-item ${selectedFeeling === emotion.name ? "active" : ""}`}
-                                onClick={() => setSelectedFeeling((prev) => (prev === emotion.name ? null : emotion.name))}
+                                onClick={() => setSelectedFeeling((prev) => (prev === emotion.name ? null : emotion.name))} //Deseleccionar la emoción y desfiltrar
                             >
                                 <img src={emotion.image} alt={emotion.name} />
                                 <p>{emotion.name}</p>

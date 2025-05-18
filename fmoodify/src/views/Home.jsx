@@ -3,25 +3,23 @@ import Navbar from "./components/Navbar";
 import DropFileInput from "./components/dropFileInput";
 import ModalTakePhoto from "./components/ModalTakePhoto";
 import loadingIcon from "../assets/loading.gif";
-import Ansiedades from "../assets/temp/Ansiedades.jpeg";
-import Blue from "../assets/temp/Blue.jpg";
-import TheShade from "../assets/temp/WhoCares.jpeg";
-import Chromakopia from "../assets/temp/CHROMAKOPIA.jpeg"
-import Qwerty from "../assets/temp/qwerty ii.jpeg"
-import OkComputer from "../assets/temp/OK Computer.jpeg"
 
 import "../styles/home.css";
 
 export default function Home() {
     const [image, setImage] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const [loading, SetLoading] = useState(false);
-    const [recommendations, SetRecommendations] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [recommendations, setRecommendations] = useState(null);
+    const [emotionLabel, setEmotionLabel] = useState("");
     const [currentCarruselPage, setCurrentCarruselPage] = useState(0);
 
     const onFileChange = (file) => {
-        console.log(file);
-        setImage(URL.createObjectURL(file));
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImage(reader.result); // base64
+        };
+        reader.readAsDataURL(file);
     };
 
     const onTakePhoto = (photo) => {
@@ -32,56 +30,45 @@ export default function Home() {
         return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     };
 
-    const handleStart = () => {
-        setImage(null);
-        SetLoading(true);
-        setTimeout(() => {
-            SetLoading(false);
-            SetRecommendations([
-                {
-                    title: "Ansiedades",
-                    artist: "Mora",
-                    album: "Metro Boomin Presents Spider Man Across the Spider-Verse",
-                    image: Ansiedades,
-                },
-                {
-                    title: "blue",
-                    artist: "yung kai",
-                    album: "blue",
-                    image: Blue,
-                },
-                {
-                    title: "The Shade",
-                    artist: "Rex Orange County",
-                    album: "WHO CARES?",
-                    image: TheShade,
-                },
-                {
-                    title: "Like Him",
-                    artist: "Tyler, The Creator",
-                    album: "CHROMAKOPIA",
-                    image: Chromakopia,
-                },
-                {
-                    title: "A BOUTIQUE FOR YOUR 180 FACE",
-                    artist: "Saya Gray",
-                    album: "QWERTY II",
-                    image: Qwerty,
-                },
-                {
-                    title: "Exit Music",
-                    artist: "Radiohead",
-                    album: "Ok Computer",
-                    image: OkComputer,
-                }
-            ]);
-        }, 3000);
-    }
+    const handleStart = async () => {
+        if (!image) return;
 
-    const handleNewRecommendationbutton = () => {
+        setLoading(true);
+
+        try {
+
+            const res = await fetch("http://localhost:5000/api/recommend", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: image })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Error");
+
+            setEmotionLabel(data.emotion);
+            setRecommendations(data.songs);
+
+        } catch (err) {
+
+            console.error(err);
+            alert("Error generating recommendation: " + err.message);
+
+        } finally { // Se ejecuta siempre, independientemente de si hubo error o no, seteando elementos a falso o null
+
+            setLoading(false);
+            setShowModal(false);
+            setImage(null);
+
+        }
+    };
+
+    const handleNew = () => { //Manejar generar una nueva recomendación "Al darle click a New Recommendation"
+
         setImage(null);
-        SetRecommendations(null);
-    }
+        setRecommendations(null);
+        setEmotionLabel("");
+
+    };
 
     return (
         <>
@@ -112,7 +99,7 @@ export default function Home() {
                             <div className="image-preview-container">
                                 <img src={image} alt="Uploaded" className="uploaded-image" />
                                 <div className="buttons">
-                                    <button onClick={() => setImage(false)} className="cancel-button">Cancel</button>
+                                    <button onClick={() => setImage(null)} className="cancel-button">Cancel</button>
                                     <button onClick={handleStart} className="start-button">Start</button>
                                 </div>
                             </div>
@@ -133,7 +120,7 @@ export default function Home() {
                     )}
                     {recommendations && (
                         <div className="recommendations">
-                            <h1>You feel Happy</h1>
+                            <h1>You feel {emotionLabel}</h1>
                             <div className="recommendation-list ">
                                 {/*Se utiliza .rec para acceder a cada elemento dentro del arreglo <recommendations>*/}
                                 {
@@ -164,7 +151,7 @@ export default function Home() {
                                 ))}
                             </div>
                             <div className="button-container">
-                                <button className="new-recommendation-button" onClick={handleNewRecommendationbutton}>New Recommendation</button>
+                                <button className="new-recommendation-button" onClick={handleNew}>New Recommendation</button>
                             </div>
                         </div>
                     )}
