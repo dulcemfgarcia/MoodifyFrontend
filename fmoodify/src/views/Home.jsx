@@ -33,6 +33,8 @@ export default function Home() {
     const handleStart = async () => {
         if (!image) return;
 
+        setCurrentCarruselPage(0);
+
         setLoading(true);
 
         try {
@@ -67,6 +69,7 @@ export default function Home() {
         setImage(null);
         setRecommendations(null);
         setEmotionLabel("");
+        setCurrentCarruselPage(0);
 
     };
 
