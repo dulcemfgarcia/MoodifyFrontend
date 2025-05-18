@@ -34,7 +34,7 @@ export default function Home() {
         if (!image) return;
 
         setCurrentCarruselPage(0);
-
+        setImage(null);
         setLoading(true);
 
         try {

@@ -12,7 +12,10 @@ import icon8 from '../../assets/profilePics/woman4.png';
 const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8];
 
 export default function ModalPage({ onClose, onSelect }) {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState({
+    idProfilePicture: 0,
+    profilePicture: undefined
+  });
 
   return (
     <div className="modal-overlay">
@@ -24,8 +27,11 @@ export default function ModalPage({ onClose, onSelect }) {
           {icons.map((icon, index) => (
             <div
               key={index}
-              className={`icon-wrapper ${selected === icon ? 'selected' : ''}`}
-              onClick={() => setSelected(icon)}
+              className={`icon-wrapper ${selected.profilePicture === icon ? 'selected' : ''}`}
+              onClick={() => setSelected({
+                idProfilePicture: index + 1,
+                profilePicture: icon
+              })}
             >
               <img src={icon} alt={`icon-${index}`} />
             </div>
