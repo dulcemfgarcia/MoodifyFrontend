@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import Logo from "../assets/MoodifyBlack.png";
+import axios from 'axios';
+
+import Logo from "../assets/MoodifyWhite.png";
 import "../styles/forgotPassword.css";
 
 export default function ForgotPassword() {
@@ -11,7 +13,27 @@ export default function ForgotPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setEmailSent(true);
-    navigate("/restorePassword");
+
+    try {
+      if (!email) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      axios.post('http://localhost:5000/user/restorePasswordRequest', { email })
+      .then((response) => {
+        console.log(response.data);
+        alert(response.data.message);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert(error.response.data.message);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error occurred during sign-in. Please try again.');
+    }
   };
 
   return (

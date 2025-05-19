@@ -1,9 +1,22 @@
+:root {
+    --primary-color: #49A078;
+    --secondary-color: #216869;
+    --text-color: #DCE1DE;
+    --text-font: 'Poppins', sans-serif;
+    --background-color: linear-gradient(80deg, #49A078 0%, #216869 100%);
+    --button-color: #1F2421;
+    --card-color: #1F2421;
+    --button-cancel-color: #A71D31;
+}
+
 /* Fondo general */
 .signup-container {
-  height: 100vh;
-  background: linear-gradient(to right, #d3d3d3, #f5f2ff);
+  height: 100%;
+  background: var(--background-color);
   padding: 30px;
   box-sizing: border-box;
+  min-height: 100vh;
+  color: var(--text-color);
 }
 
 /* Botón volver */
@@ -61,6 +74,12 @@ input[type="date"] {
   padding: 10px;
   border-radius: 5px;
   font-size: 1rem;
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px black inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 input::placeholder {
