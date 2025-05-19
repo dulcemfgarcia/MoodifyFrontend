@@ -9,7 +9,7 @@ import Confused from "../assets/emotionPics/confused.png";
 import Disgusted from "../assets/emotionPics/disgusted.png";
 import Surprised from "../assets/emotionPics/surprised.png";
 import Calm from "../assets/emotionPics/calm.png";
-import Unknown from "../assets/emotionPics/unknown.png";
+//import Unknown from "../assets/emotionPics/unknown.png";
 import Fear from "../assets/emotionPics/fear.png";
 
 import "../styles/history.css";
@@ -22,7 +22,6 @@ const emotions = [
     { name: "Disgusted", image: Disgusted },
     { name: "Surprised", image: Surprised },
     { name: "Calm", image: Calm },
-    { name: "Unknown", image: Unknown },
     { name: "Fear", image: Fear },
   ];
 
@@ -41,7 +40,12 @@ export default function History() {
                 url += `?feeling=${selectedFeeling}`;
             }
 
-            const res = await fetch(url);
+            const res = await fetch(url, 
+                {
+                    headers: {
+                        "Authorization": "Bearer " + sessionStorage.getItem("token")
+                    }
+                });
             const data = await res.json();
             setAllData(data);
         };

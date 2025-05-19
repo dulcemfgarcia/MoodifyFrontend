@@ -41,7 +41,10 @@ export default function Home() {
 
             const res = await fetch("http://localhost:5000/api/recommend", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json" , 
+                    "Authorization": "Bearer " + sessionStorage.getItem("token")    
+                },
                 body: JSON.stringify({ content: image })
             });
             const data = await res.json();

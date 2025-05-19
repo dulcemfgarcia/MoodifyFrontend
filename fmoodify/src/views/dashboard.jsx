@@ -9,7 +9,7 @@ import Confused from "../assets/emotionPics/confused.png"
 import Disgusted from "../assets/emotionPics/disgusted.png"
 import Surprised from "../assets/emotionPics/surprised.png"
 import Calm from "../assets/emotionPics/calm.png"
-import Unknown from "../assets/emotionPics/unknown.png"
+//import Unknown from "../assets/emotionPics/unknown.png"
 import Fear from "../assets/emotionPics/fear.png"
 import Negative from "../assets/Negative.png"
 import Positive from "../assets/Positive.png"
@@ -18,36 +18,66 @@ import Positive from "../assets/Positive.png"
 export default function Dashboard() {
     const [loading, SetLoading] = useState(true);
     const [currentCarruselPage, setCurrentCarruselPage] = useState(0);
+    const [backendEmotion, setBackendEmotion] = useState([]);
+    const [week, setWeek] = useState([]);
+    const [compareFeelings, setCompareFeelings] = useState([]);
 
-    const backendEmotion = [
-        { emotion: "Happy", analisys: 10, image: Happy },
-        { emotion: "Sad",  analisys: 8, image: Sad },
-        { emotion: "Angry", analisys: 6, image: Angry },
-        { emotion: "Confused", analisys: 5, image: Confused },
-        { emotion: "Disgusted", analisys: 5, image: Disgusted },
-        { emotion: "Surprised", analisys: 4, image: Surprised },
-        { emotion: "Calm", analisys: 4, image: Calm },
-        { emotion: "Unknown", analisys: 1, image: Unknown },
-        { emotion: "Fear", analisys: 1, image: Fear },
-    ];
+    const getImageForEmotion = (emotion) => {
+        const map = {
+            HAPPY: Happy,
+            SAD: Sad,
+            ANGRY: Angry,
+            CONFUSED: Confused,
+            DISGUSTED: Disgusted,
+            SURPRISED: Surprised,
+            CALM: Calm,
+            FEAR: Fear
+        };
 
-    const week = [
-        { day: "Monday", value: 15 },
-        { day: "Tuesday", value: 8 },
-        { day: "Wednesday", value: 5 },
-        { day: "Thursday", value: 3 },
-        { day: "Friday", value: 9 }
-    ];
-
-    const compareFeelings = [
-        { feeling: 1, description: "Positive Feelings", quantity: 15 },
-        { feeling: 2, description: "Negative Feelings", quantity: 6 }
-    ];
-
+        return map[emotion.toUpperCase()];
+    };
 
     useEffect(() => {
-        SetLoading(false);
+        const fetchDashboard = async () => {
+            try {
+            const res = await fetch("http://localhost:5000/api/dashboard", {
+                headers: {
+                "Authorization": "Bearer " + sessionStorage.getItem("token")
+                }
+            });
+            const data = await res.json();
+            //Se obtiene la data proviniente del backend y se mapea a los campos emotion, analisys(conteo por emoción) e image
+            const mapped = data.emotions.map(e => ({
+                emotion: e.emotion,
+                analisys: e.count,
+                image: getImageForEmotion(e.emotion)
+            }));
+
+            setBackendEmotion(mapped);
+
+            //Se ordena week conforme a los días de la semana
+            const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const orderedWeek = data.week
+            .map(d => ({ day: d.day, value: d.count }))
+            .sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+
+            setWeek(orderedWeek);
+
+            //Se obtiene la data de comparación de emociones
+            setCompareFeelings([
+                { feeling: 1, description: "Positive Feelings", quantity: data.comparison.positive },
+                { feeling: 2, description: "Negative Feelings", quantity: data.comparison.negative }
+            ]);
+            } catch (err) {
+                console.error(err);
+            } finally {
+            SetLoading(false);
+            }
+        };
+
+        fetchDashboard();
     }, []);
+
 
     return (
         <>
