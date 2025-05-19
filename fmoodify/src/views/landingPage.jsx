@@ -20,7 +20,6 @@ export default function LandingPage() {
                 <Link to="/signin" className="button-link">Sign In</Link>
             </div>
       </div>
-      <button onClick={() => {throw new Error("This is your first error!");}}>Break the world</button>
     </div>
   );
 }
