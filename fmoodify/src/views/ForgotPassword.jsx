@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         return;
       }
 
-      axios.post('http://localhost:5000/user/restorePasswordRequest', { email })
+      axios.post('https://api.moodifyproject.click/user/restorePasswordRequest', { email })
       .then((response) => {
         console.log(response.data);
         alert(response.data.message);

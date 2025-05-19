@@ -39,7 +39,7 @@ export default function SignIn() {
         alert("Please fill all fields.");
         return;
       }
-      axios.post('http://localhost:5000/auth/login', credentials)
+      axios.post('https://api.moodifyproject.click/auth/login', credentials)
       .then((response) => {
         sessionStorage.setItem('token', response.data.data.token);
         const profilePic = getIconByNumber(response.data.data.idProfilePicture);

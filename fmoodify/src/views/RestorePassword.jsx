@@ -28,7 +28,7 @@ export default function RestorePassword() {
 
       console.log(token);
 
-      axios.post('http://localhost:5000/user/restoreNewPassword', { token, newPassword: password })
+      axios.post('https://api.moodifyproject.click/user/restoreNewPassword', { token, newPassword: password })
       .then((response) => {
         console.log(response.data);
         alert(response.data.message);

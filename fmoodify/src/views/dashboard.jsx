@@ -40,7 +40,7 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchDashboard = async () => {
             try {
-            const res = await fetch("http://localhost:5000/api/dashboard", {
+            const res = await fetch("https://api.moodifyproject.click/api/dashboard", {
                 headers: {
                 "Authorization": "Bearer " + sessionStorage.getItem("token")
                 }

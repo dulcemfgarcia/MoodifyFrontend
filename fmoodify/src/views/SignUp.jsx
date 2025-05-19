@@ -77,7 +77,7 @@ export default function SignUp() {
       }
       console.log(newUser);
 
-      axios.post('http://localhost:5000/user/registerUser', newUser)
+      axios.post('https://api.moodifyproject.click/user/registerUser', newUser)
       .then((response) => {
         sessionStorage.setItem('token', response.data.data.token);
 

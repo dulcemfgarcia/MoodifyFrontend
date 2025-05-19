@@ -35,7 +35,7 @@ export default function History() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let url = "http://localhost:5000/api/history";
+            let url = "https://api.moodifyproject.click/api/history";
             if (selectedFeeling) {   //Detectamos si hay una emoción seleccionada y la agregamos a la url
                 url += `?feeling=${selectedFeeling}`;
             }
