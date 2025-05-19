@@ -4,7 +4,7 @@ import { UserContext } from "./data/UserContext";
 import ModalPage from './components/ModalPage.jsx';
 import axios from 'axios';
 
-import Logo from '../assets/MoodifyBlack.png';
+import Logo from '../assets/MoodifyWhite.png';
 import Defaulticon from '../assets/profilePics/Man1.png';
 import '../styles/signUp.css';
 
@@ -115,7 +115,7 @@ export default function SignUp() {
             <label>Name <span className="required">*</span></label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} required />
 
-            <label>email <span className="required">*</span></label>
+            <label>Email <span className="required">*</span></label>
             <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
             <label>Password <span className="required">*</span></label>

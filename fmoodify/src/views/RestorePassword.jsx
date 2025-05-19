@@ -1,27 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Logo from "../assets/MoodifyBlack.png";
+import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
+
+import Logo from "../assets/MoodifyWhite.png";
 import "../styles/restorePassword.css";
 
 export default function RestorePassword() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    try {
+      if (!password || !confirmPassword) {
+        alert("Please fill in both fields.");
+        return;
+      }
 
-    if (!password || !confirmPassword) {
-      alert("Please fill in both fields.");
-      return;
+      if (password !== confirmPassword) {
+        alert("Passwords don't match.");
+        return;
+      }
+
+      console.log(token);
+
+      axios.post('http://localhost:5000/user/restoreNewPassword', { token, newPassword: password })
+      .then((response) => {
+        console.log(response.data);
+        alert(response.data.message);
+        navigate("/signIn");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert(error.response.data.message);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error occurred during password restoration. Please try again.');
     }
-
-    if (password !== confirmPassword) {
-      alert("Passwords don't match.");
-      return;
-    }
-
-    navigate("/signIn");
   };
 
   return (
